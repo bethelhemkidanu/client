@@ -102,7 +102,6 @@ const Home = () => {
       </form>
 
       <div className={classes.questions}>
-        {/* {question.map((q) => ( */}
         {searchResults.length > 0 ? (
           searchResults.map((q) => (
             <div
@@ -111,18 +110,16 @@ const Home = () => {
               className={classes.questionItem}
             >
               <div>
-                {/* <FaRegUserCircle className={classes.user_icon} /> */}
                 <img src={image} width={60} alt="user icon" />
                 <p>{q.username}</p>
               </div>
               <Highlighter
+                className={classes.title}
                 highlightClassName={classes.highlight}
                 searchWords={[val]}
                 autoEscape={true}
                 textToHighlight={q.tittle}
               />
-
-              <div className={classes.title}>{q.tittle}</div>
               <div className={classes.icon}>
                 <FaAngleRight />
               </div>

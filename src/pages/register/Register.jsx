@@ -1,16 +1,18 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import React from 'react'
 import axios from "../../AxiosConfig"
 import {Link, useNavigate } from "react-router-dom"
 import classes from './register.module.css'
 const Register = () => {
     const navigate = useNavigate();
+    const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState("");
     const userNameDom = useRef();
     const firstNameDom = useRef();
     const lastNameDom = useRef();
     const emailDom = useRef();
     const passwordDom = useRef();
-
+    
   async function handleSubmit(e) {
     e.preventDefault();
     const usernameValue = userNameDom.current.value;
@@ -25,7 +27,8 @@ const Register = () => {
       !emailValue ||
       !passwordValue
     ) {
-      alert("Please provide required information");
+      setMessage("Please provide required information");
+      setMessageType("error");
       return;
     }
 
@@ -37,11 +40,13 @@ const Register = () => {
         email: emailValue,
         password: passwordValue,
       });
-      alert("Registered successfully, please login");
-      navigate("/login"); // Use navigate here
+      setMessage("Registered successfully, please login");
+      setMessageType("success");
+      navigate("/login"); 
       
     } catch (error) {
-      alert("Something went wrong!");
+      setMessage(error?.response?.data?.msg || "An error occurred");
+      setMessageType("error");
       console.log(error.response);
     }
   }
@@ -63,16 +68,16 @@ const Register = () => {
               required
             />
           </div>
-          <div className={classes.input_group}>
+          <div className={classes.input_groupname}>
             <input
-              className={classes.input_field}
+              className={classes.input_name}
               ref={firstNameDom}
               type="text"
               placeholder="First Name"
               required
             />
             <input
-              className={classes.input_field}
+              className={classes.input_name}
               ref={lastNameDom}
               type="text"
               placeholder="Last Name"
@@ -116,6 +121,7 @@ const Register = () => {
           you have much to offer to those who are trying to follow in your
           footsteps.
         </p>
+        
         <p>
           Wheather you are willing to share your knowledge or you are just
           looking to meet mentors of your own, please start by joining the
