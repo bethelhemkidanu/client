@@ -80,7 +80,7 @@ const Home = () => {
      useEffect(() => {
     if (!token || !user) {
       alert("Please Login");
-      navigate("/");
+      navigate("/login");
     }
   }, [])
   return (
