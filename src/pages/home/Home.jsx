@@ -77,6 +77,12 @@ const Home = () => {
     searchQuestion(); // Trigger the search
   };
  
+     useEffect(() => {
+    if (!token || !user) {
+      alert("Please Login");
+      navigate("/");
+    }
+  }, [])
   return (
     <section className={classes.container_wrapper}>
       <div className={classes.flex}>
